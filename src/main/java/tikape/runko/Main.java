@@ -7,6 +7,8 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import tikape.runko.database.Database;
 import tikape.runko.database.OpiskelijaDao;
 
+//tämä on turha kommentti
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
