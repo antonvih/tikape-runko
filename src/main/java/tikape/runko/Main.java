@@ -1,5 +1,7 @@
 package tikape.runko;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import spark.ModelAndView;
 import spark.Spark;
@@ -42,9 +44,18 @@ public class Main {
         Spark.get("/annos/:id", (req, res) -> {
             Integer annosId = Integer.parseInt(req.params(":id"));
             HashMap map = new HashMap<>();
-            map.put("annosRaakaAineet", annosRaakaAineet.findAllFor(annosId));
+            ArrayList<String> ohjeLista = new ArrayList<>();
+            ArrayList<RaakaAine> Rlista = new ArrayList<>();
+            ArrayList<AnnosRaakaAine> ARlista = new ArrayList<>();
             map.put("annos", annokset.findOne(annosId));
-            map.put("raakaAineet", raakaAineet.findAll()); //tämä
+            map.put("raakaAineet", raakaAineet.findAll());
+            Rlista =  (ArrayList<RaakaAine>) raakaAineet.findAllForFood(annosId);
+            ARlista = (ArrayList<AnnosRaakaAine>) annosRaakaAineet.findAllFor(annosId);
+            for (int i =0; i<Rlista.size(); i++) {
+                ohjeLista.add(new String(ARlista.get(i).getJarjestys()+". "+Rlista.get(i).getNimi()+", "+ARlista.get(i).getMaara()+", "+ARlista.get(i).getOhje()));
+            }
+            Collections.sort(ohjeLista);
+            map.put("ohjeet", ohjeLista);
             return new ModelAndView(map, "annos");
         }, new ThymeleafTemplateEngine());
         
@@ -57,9 +68,7 @@ public class Main {
 
         Spark.post("/raakaaineet", (req, res) -> {
             RaakaAine aine = new RaakaAine(-1, req.queryParams("nimi"));
-
             raakaAineet.save(aine);
-
             res.redirect("/raakaaineet");
             return "";
 
@@ -74,21 +83,13 @@ public class Main {
         });
         
         Spark.post("/lisaaAnnosRaakaAine/:id", (req, res) -> {
-            System.out.println("1");
-            int raakaAineId = Integer.parseInt(req.queryParams("raakaAineId")); //oikein???
-            System.out.println("2");
+            int raakaAineId = Integer.parseInt(req.queryParams("raakaAineId"));
             int annosId = Integer.parseInt(req.params(":id"));
-            System.out.println("3");
             int jarjestys = Integer.parseInt(req.queryParams("jarjestys"));
-            System.out.println("4");
             String maara = req.queryParams("maara");
-            System.out.println("5");
             String ohje = req.queryParams("ohje");
-            System.out.println("6");
             AnnosRaakaAine annosRaakaAine = new AnnosRaakaAine(-1, annosId, raakaAineId, jarjestys, maara, ohje);
-            System.out.println("7");
             annosRaakaAineet.save(annosRaakaAine);
-            System.out.println("8");
             res.redirect("/annos/"+annosId);
             return "";
         });

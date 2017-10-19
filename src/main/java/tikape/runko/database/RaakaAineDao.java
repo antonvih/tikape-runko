@@ -64,6 +64,27 @@ public class RaakaAineDao implements Dao<RaakaAine, Integer> {
             return object;
     }
     
+   
+    public List<RaakaAine> findAllForFood(Integer key) throws SQLException {
+        List<RaakaAine> aineet = new ArrayList<>();
+
+        try(Connection c = database.getConnection()){
+            
+                
+                
+                PreparedStatement stmt = c.prepareStatement("SELECT RaakaAine.id, RaakaAine.nimi FROM RaakaAine INNER JOIN AnnosRaakaAine ON RaakaAine.id = AnnosRaakaAine.raakaaine_id INNER JOIN Annos ON AnnosRaakaAine.annos_id = annos.id WHERE Annos.id = ?");
+                stmt.setObject(1, key);
+
+                ResultSet rs = stmt.executeQuery(); 
+                
+            while(rs.next()){
+                aineet.add(new RaakaAine(rs.getInt("id"), rs.getString("nimi")));
+            }
+        }
+        return aineet;
+
+    }
+    
     
     
 }

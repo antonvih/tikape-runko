@@ -9,12 +9,10 @@
     <body>
         <h1 th:text="${annos.nimi}">Annoksen nimi</h1>
         
-        <p>Raaka-aineet:</p> <!--Yksinkertaisesti lista kaikista olemassaolevista annoksista (hellpo toteuttaa)-->
-        <ul>
-            <li th:each="annosRaakaAine: ${annosRaakaAineet}">
-                <span th:text="${annosRaakaAine.jarjestys}">järjestysnumero</span>. 
-                <span th:text="${annosRaakaAine.ohje}">ohje</span>, 
-                <span th:text="${annosRaakaAine.maara}">määrä</span>.
+        <p>Raaka-aineet:</p> 
+        <ul>  
+            <li th:each="Text : ${ohjeet}">
+                <span th:text="${Text}"></span> 
             </li>
         </ul>
         
@@ -32,7 +30,7 @@
             Valitse raaka-aine<br/></div>
             
             
-            <div><input type="text" name="jarjestys"/>  Jasrestys (anna luku, 1=ensimmaiseksi)<br/></div>
+            <div><input type="text" name="jarjestys"/>  Jarjestys (anna luku, 1=ensimmaiseksi)<br/></div>
             <div><input type="text" name="maara"/>  Maara, esim kirjoita 2 litraa tai 3 kpl<br/></div>
             <div><input type="text" name="ohje"/>  Kirjoita raaka-aineelle ohje, esim: Keita perunat kattilassa, ja kuori ne, jonka jalkeen lisaa ne vuokaan.<br/></div>
             <input type="submit" value="Lisaa!"/>

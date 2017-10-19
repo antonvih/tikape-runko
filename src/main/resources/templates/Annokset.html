@@ -10,7 +10,6 @@
         <h1>Ruokamenun hallintajarjestelma</h1>
 
                 
-        <p>Ohje: Painaannosta siirtyaksesi annossivulle. Annossivulla voit lukea ohjeen ja lisata raaka-aineita kullekin annokselle</p>
         <p>Kaikki mahdolliset annokset:</p>
         <ul>
             <li th:each="annos: ${annokset}">
@@ -21,7 +20,7 @@
         </ul>
         
         <p> </p>
-        <p>Lisaa annos: (nimi ja hinta, raaka-aineet lisataan annossivulla</p>
+        <p>Lisaa annos: (nimi ja hinta (kokonaisluku), raaka-aineet lisataan annossivulla)</p>
         <form method="POST" action="/annos">
             <div><input type="text" name="nimi"/>  nimi<br/></div>
             <div><input type="text" name="hinta"/>  hinta<br/></div>
