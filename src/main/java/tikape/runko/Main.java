@@ -9,6 +9,7 @@ import tikape.runko.database.AnnosDao;
 import tikape.runko.database.AnnosRaakaAineDao;
 import tikape.runko.database.Database;
 import tikape.runko.database.RaakaAineDao;
+import tikape.runko.domain.Annos;
 import tikape.runko.domain.RaakaAine;
 
 
@@ -54,13 +55,13 @@ public class Main {
 
         });
 
-        //Spark.post("/tasks", (req, res) -> {
-            //Task task = new Task(-1, req.queryParams("name"));
-            //tasks.saveOrUpdate(task);
-
-            //res.redirect("/tasks");
-            //return "";
-        //});
+        Spark.post("/annos", (req, res) -> {
+            Annos annos = new Annos(-1, Integer.parseInt(req.queryParams("hinta")), req.queryParams("nimi"));
+            annokset.save(annos);
+            int id = annokset.findIdForNameAndPrice(req.queryParams("nimi"), Integer.parseInt(req.queryParams("hinta")));
+            res.redirect("/annos/"+id);
+            return "";
+        });
  
 
 
