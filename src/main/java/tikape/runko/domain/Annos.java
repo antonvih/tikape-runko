@@ -33,6 +33,11 @@ public class Annos {
         return nimi;
     }
 
+    @Override
+    public String toString() {
+        return this.nimi; //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
     

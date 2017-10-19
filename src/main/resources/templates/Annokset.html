@@ -2,34 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Annoskesk‰sittelyj‰rjestelm‰ v1.0 ALPHA PRE RELEASE (VƒHƒ NIINKU PUBG ":D")</title>
+        <title>Annoskesk√§sittelyj√§rjestelm√§ v1.0 ALPHA PRE RELEASE (V√ÑH√Ñ NIINKU PUBG ":D")</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Ruokamenun hallintaj‰rjestelm‰</h1>
+        <h1>Ruokamenun hallintaj√§rjestelm√§</h1>
 
-        <p>P‰iv‰n menu: <span th:text="${viesti}">jotain?</span></p> <!--P‰iv‰n viesti (turhake)-->
-        
-        
-        
-        <p>Kaikki mahdolliset annokset:</p> <!--Yksinkertaisesti lista kaikista olemassaolevista annoksista (hellpo toteuttaa)-->
+                
+        <p>Ohje: Painaannosta siirty√§ksesi annossivulle. Annossivulla voit lukea ohjeen ja lis√§t√§ raaka-aineita kullekin annokselle</p>
+        <p>Kaikki mahdolliset annokset:</p>
         <ul>
-            <li th:each="annosOlio: ${annoksetList}">
-                <span th:text="${Annos.id}">1</span> <span th:text="${Annos.nimi}">Essi esimerkki</span>
+            <li th:each="annos: ${annokset}">
+                <a th:href="@{~/annos/{id}(id=${annos.id})}">
+                    <span th:text="${annos.id}">id</span> <span th:text="${annos.nimi}">Annos</span>
+                </a>
             </li>
         </ul>
         
-        <p><a href="/uusiAnnos">Luo uusi annos.</a></p> <!--lomakesivu uuden paskan luontiin-->
-        <p><a href="/uusiRaakaAine">Lis‰‰ saatavilla olevia raaka-aineita.</a></p> <!--lomakesivu raaka-aineidnenn lis‰‰miseen (helpo)-->
-        <p><a href="/annosOhjeet">Tarkastele ohjeita annosten vlamistukseen</a></p> <!--Listaa kaikki annokset linkkein‰, kun linkki‰ painaa, 
-vie sivulle jossa tulostuu raaka-aineen ohje+m‰‰r‰ lis‰ysj‰rjestyksess‰
-Esim jos olisi nakkikeitto, jolla rak_aineet vesi: ohje: laita kattilaan: m‰‰r‰: 1L
-ja nakki: ohje: pilko ja lis‰‰ kattilaan: m‰‰r‰: 5kpl, niin tulostuisi tyyliin (klikkauksen j‰lkeen):
-Nakkikeitto:
-1. Vesi: laita kattilaan 1L
-2. Nakki: pilko ja lis‰‰ kattilaan 5kpl
--->
+        <p><a href="/raakaaineet">Lis√§√§ saatavilla olevia raaka-aineita.</a></p> 
+ 
         
     </body>
 </html>

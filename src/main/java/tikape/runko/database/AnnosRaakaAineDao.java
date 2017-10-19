@@ -5,8 +5,12 @@
  */
 package tikape.runko.database;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import tikape.runko.domain.Annos;
 import tikape.runko.domain.AnnosRaakaAine;
 
 /**
@@ -39,6 +43,21 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer>{
     @Override
     public AnnosRaakaAine save(AnnosRaakaAine object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
+    public List<AnnosRaakaAine> findAllFor(int id) throws SQLException {
+        List<AnnosRaakaAine> annosRaakaAineet = new ArrayList<>();
+        
+        try (Connection conn = database.getConnection();
+                ResultSet result = conn.prepareStatement("SELECT id, jarjestys, annos_id, raakaaine_id,maara,ohje FROM AnnosRaakaAine WHERE annos_id ="+id).executeQuery()) {
+
+            while (result.next()) {
+                annosRaakaAineet.add(new AnnosRaakaAine(result.getInt("id"), result.getInt("annos_id"), result.getInt("raakaaine_id"), result.getInt("jarjestys"), result.getString("maara"),result.getString("maara")));
+            }
+        }
+
+        return annosRaakaAineet;
     }
     
     
