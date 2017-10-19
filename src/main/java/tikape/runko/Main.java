@@ -31,10 +31,15 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         Spark.get("/annos/:id", (req, res) -> {
+            System.out.println("1");
             Integer annosId = Integer.parseInt(req.params(":id"));
+            System.out.println("2");
             HashMap map = new HashMap<>();
+            System.out.println("3");
             map.put("annosRaakaAineet", annosRaakaAineet.findAllFor(annosId));
-            map.put("annos", annosRaakaAineet.findOne(annosId));
+            System.out.println("4");
+            map.put("annos", annokset.findOne(annosId));
+            System.out.println("5");
             return new ModelAndView(map, "annos");
         }, new ThymeleafTemplateEngine());
         
