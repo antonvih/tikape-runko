@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Annoskesk�sittelyj�rjestelm� v1.0 ALPHA PRE RELEASE (V�H� NIINKU PUBG ":D")</title>
+        <title>Annosohjelma</title>
         <meta charset="utf-8" />
     </head>
 
@@ -12,9 +12,36 @@
         <p>Raaka-aineet:</p> <!--Yksinkertaisesti lista kaikista olemassaolevista annoksista (hellpo toteuttaa)-->
         <ul>
             <li th:each="annosRaakaAine: ${annosRaakaAineet}">
-                <span th:text="${annosRaakaAine.jarjestys}">1</span> <span th:text="${annosRaakaAine.ohje}">Essi esimerkki</span><span th:text="${annosRaakaAine.maara}">Essi esimerkki</span>
+                <span th:text="${annosRaakaAine.jarjestys}">järjestysnumero</span>. 
+                <span th:text="${annosRaakaAine.ohje}">ohje</span>, 
+                <span th:text="${annosRaakaAine.maara}">määrä</span>.
             </li>
         </ul>
+        
+        
+        
+        <p></p>
+        <p>Lisaa raaka-aineita:</p>
+        <form th:action="@{~/lisaaAnnosRaakaAine/{id}(id=${annos.id})}" method="post">
+            
+            <div><select name="raakaAineId">
+                <option th:each="raakaAine: ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                    raakaaine
+                </option>
+            </select>
+            Valitse raaka-aine<br/></div>
+            
+            
+            <div><input type="text" name="jarjestys"/>  Jasrestys (anna luku, 1=ensimmaiseksi)<br/></div>
+            <div><input type="text" name="maara"/>  Maara, esim kirjoita 2 litraa tai 3 kpl<br/></div>
+            <div><input type="text" name="ohje"/>  Kirjoita raaka-aineelle ohje, esim: Keita perunat kattilassa, ja kuori ne, jonka jalkeen lisaa ne vuokaan.<br/></div>
+            <input type="submit" value="Lisaa!"/>
+        </form>
+        
+        
+        
+        
+        <p><a href="/annokset">Takaisin annoslistaan.</a></p> 
         
         
         

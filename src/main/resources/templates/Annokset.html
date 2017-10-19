@@ -2,34 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Annoskeskäsittelyjärjestelmä v1.0 ALPHA PRE RELEASE (VÄHÄ NIINKU PUBG ":D")</title>
+        <title>Annosohjelma</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Ruokamenun hallintajärjestelmä</h1>
+        <h1>Ruokamenun hallintajarjestelma</h1>
 
                 
-        <p>Ohje: Painaannosta siirtyäksesi annossivulle. Annossivulla voit lukea ohjeen ja lisätä raaka-aineita kullekin annokselle</p>
+        <p>Ohje: Painaannosta siirtyaksesi annossivulle. Annossivulla voit lukea ohjeen ja lisata raaka-aineita kullekin annokselle</p>
         <p>Kaikki mahdolliset annokset:</p>
         <ul>
             <li th:each="annos: ${annokset}">
                 <a th:href="@{~/annos/{id}(id=${annos.id})}">
-                    <span th:text="${annos.id}">id</span> <span th:text="${annos.nimi}">Annos</span>
+                    <span th:text="${annos.nimi}">Annos</span>
                 </a>
             </li>
         </ul>
         
         <p> </p>
-        <p>Lisää annos: (nimi ja hinta, raaka-aineet lisätään annossivulla</p>
+        <p>Lisaa annos: (nimi ja hinta, raaka-aineet lisataan annossivulla</p>
         <form method="POST" action="/annos">
-            <input type="text" name="nimi"/><p>nimi</p><br/>
-            <input type="text" name="hinta"/><p>hinta</p><br/>
-            <input type="submit" value="Lisää!"/>
+            <div><input type="text" name="nimi"/>  nimi<br/></div>
+            <div><input type="text" name="hinta"/>  hinta<br/></div>
+            <input type="submit" value="Lisaa!"/>
         </form>
         
         
-        <p><a href="/raakaaineet">Lisää saatavilla olevia raaka-aineita.</a></p> 
+        <p><a href="/raakaaineet">Lisaa saatavilla olevia raaka-aineita.</a></p>
+        <p><a href="/ohjeet">Ohjeet ohjelman kayttoa varten.</a></p> 
  
         
     </body>

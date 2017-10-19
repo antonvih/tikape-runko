@@ -6,6 +6,7 @@
 package tikape.runko.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,7 +43,18 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer>{
 
     @Override
     public AnnosRaakaAine save(AnnosRaakaAine object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = database.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO AnnosRaakaAine (jarjestys, annos_id, raakaaine_id, maara, ohje) VALUES (?,?,?,?,?)");
+            stmt.setInt(1, object.getJarjestys());
+            stmt.setInt(2, object.getAnnosId());
+            stmt.setInt(3, object.getRaakaAineId());
+            stmt.setString(4, object.getMaara());
+            stmt.setString(5, object.getOhje());
+            
+            stmt.executeUpdate();
+        }
+
+        return object;
     }
     
 
@@ -53,7 +65,7 @@ public class AnnosRaakaAineDao implements Dao<AnnosRaakaAine, Integer>{
                 ResultSet result = conn.prepareStatement("SELECT id, jarjestys, annos_id, raakaaine_id,maara,ohje FROM AnnosRaakaAine WHERE annos_id ="+id).executeQuery()) {
 
             while (result.next()) {
-                annosRaakaAineet.add(new AnnosRaakaAine(result.getInt("id"), result.getInt("annos_id"), result.getInt("raakaaine_id"), result.getInt("jarjestys"), result.getString("maara"),result.getString("maara")));
+                annosRaakaAineet.add(new AnnosRaakaAine(result.getInt("id"), result.getInt("annos_id"), result.getInt("raakaaine_id"), result.getInt("jarjestys"), result.getString("maara"),result.getString("ohje")));
             }
         }
 

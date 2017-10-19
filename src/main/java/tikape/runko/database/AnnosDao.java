@@ -75,7 +75,7 @@ public class AnnosDao implements Dao<Annos, Integer>{
     
     public int findIdForNameAndPrice(String nimi, int price) throws SQLException {
         try (Connection conn = database.getConnection();
-                ResultSet result = conn.prepareStatement("SELECT id FROM Annos WHERE nimi = '"+nimi+"' AND price ="+price).executeQuery()) {
+                ResultSet result = conn.prepareStatement("SELECT id FROM Annos WHERE nimi = '"+nimi+"' AND hinta ="+price).executeQuery()) {
 
             while (result.next()) {
                 return result.getInt("id");
